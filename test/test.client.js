@@ -1,6 +1,6 @@
 'use strict';
 
-var host = process.env['KAFKA_TEST_HOST'] || '';
+var host = process.env['KAFKA_TEST_HOST'] || '127.0.0.1';
 var kafka = require('..');
 var Client = kafka.Client;
 var uuid = require('uuid');

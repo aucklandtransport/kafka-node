@@ -833,11 +833,13 @@ describe('ConsumerGroup', function () {
         consumerGroup.defaultOffsets = defaultOffsets;
         sandbox.stub(consumerGroup, 'fetchOffset').yields(null, fetchOffsetResponse);
         sandbox.stub(consumerGroup, 'saveDefaultOffsets').yields(null);
+        sandbox.stub(consumerGroup, 'commit').yields(null);
 
         consumerGroup.handleSyncGroup(syncGroupResponse, function (error, ownsPartitions) {
           ownsPartitions.should.be.true;
           sinon.assert.calledWith(consumerGroup.fetchOffset, syncGroupResponse.partitions);
           sinon.assert.calledOnce(consumerGroup.saveDefaultOffsets);
+          sinon.assert.calledOnce(consumerGroup.commit);
 
           const topicPayloads = _(consumerGroup.topicPayloads);
 
